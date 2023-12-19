@@ -35,7 +35,7 @@ export const UserOrder = () => {
               <div>
                 <div className="mx-auto mt-12 bg-white max-w-7xl px-4 sm:px-6 lg:px-8">
                   <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                    <h1 className="text-4xl my-5 font-bold tracking-tight text-gray-900">
+                    <h1 className="text-2xl my-5 font-bold tracking-tight text-gray-900">
                       Order # {userOrders.id}
                     </h1>
                     <h3 className="text-xl my-5 font-bold tracking-tight text-red-900">
@@ -74,7 +74,7 @@ export const UserOrder = () => {
                                     htmlFor="quantity"
                                     className="inline mr-5 text-sm font-medium leading-6 text-gray-900"
                                   >
-                                    Qty :{item.product.quantity}
+                                    Qty : <strong>{item.quantity}</strong>
                                   </label>
                                 </div>
 
@@ -110,6 +110,7 @@ export const UserOrder = () => {
                         Email : {userOrders.selectedAddress.email}
                       </p>
                     </div>
+                     <div className=" flex justify-end mt-4 content-center items-end"> <button className=" py-2 px-5 bg-red-600 rounded-lg hover:bg-red-500 font-bold text-white">cancel Order</button></div>
                   </div>
                 </div>
               </div>

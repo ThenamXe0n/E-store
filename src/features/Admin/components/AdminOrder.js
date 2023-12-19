@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import { ITEMS_PER_PAGE, discountedPrice } from '../../../app/constants';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from "react";
+import { ITEMS_PER_PAGE, discountedPrice } from "../../../app/constants";
+import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllOrdersAsync,
   selectOrders,
   selectTotalOrders,
   updateOrderAsync,
-} from '../../orders/orderSlice';
+} from "../../orders/orderSlice";
 import {
   PencilIcon,
   EyeIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-} from '@heroicons/react/24/outline';
-import Pagination from '../../common/Pagination';
+} from "@heroicons/react/24/outline";
+import Pagination from "../../common/Pagination";
 
 function AdminOrders() {
   const [page, setPage] = useState(1);
@@ -22,17 +22,19 @@ function AdminOrders() {
   const totalOrders = useSelector(selectTotalOrders);
   const [editableOrderId, setEditableOrderId] = useState(-1);
   const [sort, setSort] = useState({});
+  const [value, setValue] = useState("");
 
   const handleEdit = (order) => {
     setEditableOrderId(order.id);
   };
   const handleShow = () => {
-    console.log('handleShow');
+    console.log("handleShow");
   };
 
   const handleUpdate = (e, order) => {
     const updatedOrder = { ...order, status: e.target.value };
     dispatch(updateOrderAsync(updatedOrder));
+    setValue(e.target.value);
     setEditableOrderId(-1);
   };
 
@@ -48,23 +50,24 @@ function AdminOrders() {
 
   const chooseColor = (status) => {
     switch (status) {
-      case 'pending':
-        return 'bg-purple-200 text-purple-600';
-      case 'dispatched':
-        return 'bg-yellow-200 text-yellow-600';
-      case 'delivered':
-        return 'bg-green-200 text-green-600';
-      case 'cancelled':
-        return 'bg-red-200 text-red-600';
+      case "pending":
+        return "bg-purple-200 text-purple-600";
+      case "dispatched":
+        return "bg-yellow-200 text-yellow-600";
+      case "delivered":
+        return "bg-green-200 text-green-600";
+      case "cancelled":
+        return "bg-red-200 text-red-600";
       default:
-        return 'bg-purple-200 text-purple-600';
+        return "bg-purple-200 text-purple-600";
     }
   };
 
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    const updatedOrder = { status: value };
     dispatch(fetchAllOrdersAsync({ sort, pagination }));
-  }, [dispatch, page, sort]);
+  }, [dispatch, page, sort, value]);
 
   return (
     <div className="overflow-x-auto">
@@ -78,14 +81,14 @@ function AdminOrders() {
                     className="py-3 px-6 text-left cursor-pointer"
                     onClick={(e) =>
                       handleSort({
-                        sort: 'id',
-                        order: sort?._order === 'asc' ? 'desc' : 'asc',
+                        sort: "id",
+                        order: sort?._order === "asc" ? "desc" : "asc",
                       })
                     }
                   >
-                    Order# {' '}
-                    {sort._sort === 'id' &&
-                      (sort._order === 'asc' ? (
+                    Order#{" "}
+                    {sort._sort === "id" &&
+                      (sort._order === "asc" ? (
                         <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>
                       ) : (
                         <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
@@ -96,14 +99,14 @@ function AdminOrders() {
                     className="py-3 px-6 text-left cursor-pointer"
                     onClick={(e) =>
                       handleSort({
-                        sort: 'totalAmount',
-                        order: sort?._order === 'asc' ? 'desc' : 'asc',
+                        sort: "totalAmount",
+                        order: sort?._order === "asc" ? "desc" : "asc",
                       })
                     }
                   >
-                    Total Amount {' '}
-                    {sort._sort === 'totalAmount' &&
-                      (sort._order === 'asc' ? (
+                    Total Amount{" "}
+                    {sort._sort === "totalAmount" &&
+                      (sort._order === "asc" ? (
                         <ArrowUpIcon className="w-4 h-4 inline"></ArrowUpIcon>
                       ) : (
                         <ArrowDownIcon className="w-4 h-4 inline"></ArrowDownIcon>
@@ -129,13 +132,13 @@ function AdminOrders() {
                           <div className="mr-2">
                             <img
                               className="w-6 h-6 rounded-full"
-                              src={item.thumbnail}
-                              alt=""
+                              src={item.product.thumbnail}
+                              alt={item.product.title}
                             />
                           </div>
                           <span>
-                            {item.title} - #{item.quantity} - $
-                            {discountedPrice(item)}
+                            {item.product.title} - #{item.quantity} - $
+                            {discountedPrice(item.product)}
                           </span>
                         </div>
                       ))}
@@ -151,19 +154,36 @@ function AdminOrders() {
                           <strong>{order.selectedAddress.Name}</strong>,
                         </div>
                         <div>{order.selectedAddress.adddress},</div>
-                        <div>{order.selectedAddress.city},{order.selectedAddress.state},{order.selectedAddress.PinCodes} </div>
+                        <div>
+                          {order.selectedAddress.city},
+                          {order.selectedAddress.state},
+                          {order.selectedAddress.PinCodes}{" "}
+                        </div>
                         <div>{order.selectedAddress.contact}, </div>
                       </div>
                     </td>
                     <td className="py-3 px-6 text-center">
                       {order.id === editableOrderId ? (
-                        <select onChange={(e) => handleUpdate(e, order)}>
-                          <option value="pending">Pending</option>
-                          <option value="pending">Pending</option>
-                          <option value="dispatched">Dispatched</option>
-                          <option value="delivered">Delivered</option>
-                          <option value="cancelled">Cancelled</option>
-                        </select>
+                        <>
+                          <select
+                            onChange={(e) => handleUpdate(e, order)}
+                            value={value}
+                          >
+                            {/* <option value="pending">Pending</option> */}
+                            <option value="pending">Pending</option>
+                            <option value="dispatched">Dispatched</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                          </select>
+                          <span
+                            className=" ml-4 bg-red-600 py-2 px-3 rounded-lg text-white font-bold cursor-pointer hover:bg-red-500"
+                            onClick={() => {
+                              setEditableOrderId(-1);
+                            }}
+                          >
+                           cancel 
+                          </span>
+                        </>
                       ) : (
                         <span
                           className={`${chooseColor(

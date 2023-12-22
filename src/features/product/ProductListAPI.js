@@ -23,7 +23,7 @@ export function fetchProductsByFilter(filter,sort,pagination,admin) {
   }
   return new Promise( async (resolve) => {
     const response = await fetch(
-      'http://localhost:8080/products?'+queryString);
+      'https://ecommerce-backend-psi-eight.vercel.app/products?'+queryString);
     const data = await response.json();
     const totalItems = await response.headers.get("X-Total-Count");
     resolve({ data: { product: data, totalItems: +totalItems } });
@@ -33,7 +33,7 @@ export function fetchProductsByFilter(filter,sort,pagination,admin) {
 export function fetchAllProductById(id) {
   return new Promise(async (resolve) => {
     //TODO:  we will not hard-code server URL here
-    const response = await fetch("http://localhost:8080/products/"+id);
+    const response = await fetch("https://ecommerce-backend-psi-eight.vercel.app/products/"+id);
     const data = await response.json();
     resolve({ data });
   });
@@ -42,7 +42,7 @@ export function fetchAllProductById(id) {
 export function fetchCategories() {
   return new Promise(async (resolve) => {
     //TODO:  we will not hard-code server URL here
-    const response = await fetch("http://localhost:8080/categories");
+    const response = await fetch("https://ecommerce-backend-psi-eight.vercel.app/categories");
     const data = await response.json();
     resolve({ data });
   });
@@ -51,7 +51,7 @@ export function fetchCategories() {
 export function fetchBrands() {
   return new Promise(async (resolve) => {
     //TODO:  we will not hard-code server URL here
-    const response = await fetch("http://localhost:8080/brands");
+    const response = await fetch("https://ecommerce-backend-psi-eight.vercel.app/brands");
     const data = await response.json();
     resolve({ data });
   });
@@ -59,7 +59,7 @@ export function fetchBrands() {
 
 export function updateProducts(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/products/'+update.id, {
+    const response = await fetch('https://ecommerce-backend-psi-eight.vercel.app/products/'+update.id, {
       method: 'PATCH',
       body: JSON.stringify(update),
       headers: { 'content-type': 'application/json' },
@@ -71,7 +71,7 @@ export function updateProducts(update) {
 
   export function createProduct(productData) {
     return new Promise(async (resolve) => {
-      const response = await fetch('http://localhost:8080/products', {
+      const response = await fetch('https://ecommerce-backend-psi-eight.vercel.app/products', {
         method: 'POST',
         body: JSON.stringify(productData),
         headers: { 'content-type': 'application/json' },

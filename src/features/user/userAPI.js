@@ -1,7 +1,7 @@
 // A mock function to mimic making an async request for data
 export function fetchLoggedInUser(userId) {
   return new Promise(async (resolve) => {
-    const response = await fetchhttps://ecommerce-backend-psi-eight.vercel.app/user/"+userId);
+    const response = await fetch(https://ecommerce-backend-psi-eight.vercel.app/user/"+userId);
     const data = await response.json();
     resolve({data});
   });

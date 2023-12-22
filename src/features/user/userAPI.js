@@ -1,7 +1,7 @@
 // A mock function to mimic making an async request for data
 export function fetchLoggedInUser(userId) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/user/"+userId);
+    const response = await fetchhttps://ecommerce-backend-psi-eight.vercel.app/user/"+userId);
     const data = await response.json();
     resolve({data});
   });
@@ -9,7 +9,7 @@ export function fetchLoggedInUser(userId) {
 
 export function fetchLoggedInUserOrders(userId) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/orders?user="+userId);
+    const response = await fetch("https://ecommerce-backend-psi-eight.vercel.app/orders?user="+userId);
     const data = await response.json();
     resolve({data});
   });
@@ -17,7 +17,7 @@ export function fetchLoggedInUserOrders(userId) {
 
 export function updateUser(update) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/user/'+update.id, {
+    const response = await fetch('https://ecommerce-backend-psi-eight.vercel.app/user/'+update.id, {
       method: 'PATCH',
       body: JSON.stringify(update),
       headers: { 'content-type': 'application/json' },

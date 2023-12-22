@@ -1,15 +1,4 @@
-import { Await } from "react-router-dom";
-
-export function fetchAllProducts() {
-  return new Promise(async (resolve) => {
-    //TODO:  we will not hard-code server URL here
-    const response = await fetch("http://localhost:8080/products");
-    const data = await response.json();
-    resolve({ data });
-  });
-}
-
-export function fetchProductsByFilter(filter,sort,pagination) {
+export function fetchProductsByFilter(filter,sort,pagination,admin) {
   //filter ={"category":["smartphone","laptop"]}
   // sort ={_sort:"price",_order=desc}
   //pagination = {page1,_limit=10} //_page=1&_limit=10
@@ -29,7 +18,9 @@ export function fetchProductsByFilter(filter,sort,pagination) {
   for (let key in pagination) {
     queryString += `${key}=${pagination[key]}&`;
   }
-
+  if(admin){
+    queryString += `admin=true`;
+  }
   return new Promise( async (resolve) => {
     const response = await fetch(
       'http://localhost:8080/products?'+queryString);

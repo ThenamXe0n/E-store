@@ -43,7 +43,7 @@ function AdminOrders() {
   };
 
   const handleSort = (sortOption) => {
-    const sort = { _sort: sortOption.sort, _order: sortOption.order };
+    const sort = { _sort: (sortOption.sort), _order: sortOption.order };
     console.log({ sort });
     setSort(sort);
   };
@@ -73,7 +73,7 @@ function AdminOrders() {
     <div className="overflow-x-auto">
       <div className="bg-gray-100 flex items-center justify-center font-sans overflow-hidden">
         <div className="w-full">
-          <div className="bg-white shadow-md rounded my-6">
+          <div className="bg-white shadow-md rounded my-6 overflow-x-scroll">
             <table className="min-w-max w-full table-auto">
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -96,7 +96,7 @@ function AdminOrders() {
                   </th>
                   <th className="py-3 px-6 text-left">Items</th>
                   <th
-                    className="py-3 px-6 text-left cursor-pointer"
+                    className="py-3 px-6 text-center cursor-pointer"
                     onClick={(e) =>
                       handleSort({
                         sort: "totalAmount",
@@ -117,7 +117,7 @@ function AdminOrders() {
                   <th className="py-3 px-6 text-center">Actions</th>
                 </tr>
               </thead>
-              <tbody className="text-gray-600 text-sm font-light">
+              <tbody className="text-gray-600 text-sm font-semibold">
                 {orders.map((order) => (
                   <tr className="border-b border-gray-200 hover:bg-gray-100">
                     <td className="py-3 px-6 text-left whitespace-nowrap">
@@ -136,15 +136,15 @@ function AdminOrders() {
                               alt={item.product.title}
                             />
                           </div>
-                          <span>
+                          <span >
                             {item.product.title} - #{item.quantity} - $
                             {discountedPrice(item.product)}
                           </span>
                         </div>
                       ))}
                     </td>
-                    <td className="py-3 px-6 text-center">
-                      <div className="flex items-center justify-center">
+                    <td className="py-3 px-6 text-center bg-green-400">
+                      <div className="flex items-center justify-center text-lg">
                         ${order.totalAmount}
                       </div>
                     </td>

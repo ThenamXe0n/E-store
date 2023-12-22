@@ -2289,6 +2289,12 @@
       "quantity": 1,
       "user": 1,
       "id": 4
+    },
+    {
+      "product": 2,
+      "quantity": 1,
+      "user": 2,
+      "id": 5
     }
   ],
   "orders": [
@@ -2331,6 +2337,22 @@
       "totalItemInCart": 1,
       "status": "pending",
       "id": 1
+    },
+    {
+      "products": [
+        {
+          "product": 2,
+          "quantity": 1,
+          "user": 2,
+          "id": 5
+        }
+      ],
+      "user": 2,
+      "paymentMethod": "cash",
+      "totalAmount": null,
+      "totalItemInCart": 1,
+      "status": "pending",
+      "id": 2
     }
   ]
 }

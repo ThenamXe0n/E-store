@@ -1,6 +1,6 @@
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch('http://localhost:8080/user', {
+    const response = await fetch('https://ecommerce-backend-psi-eight.vercel.app/user', {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: { 'content-type': 'application/json' },
@@ -15,7 +15,7 @@ export function checkUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     const email = loginInfo.email;
     const password = loginInfo.password;
-    const response = await fetch('http://localhost:8080/user?email='+email);
+    const response = await fetch('https://ecommerce-backend-psi-eight.vercel.app/user?email='+email);
     const data = await response.json();
     console.log({data})
     if (data.length) {

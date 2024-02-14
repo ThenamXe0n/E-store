@@ -2,6 +2,7 @@
   "name": "react-ecommerce",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://ecommerce-backend-cup09eo47-nameet-mandwals-projects.vercel.app",
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
